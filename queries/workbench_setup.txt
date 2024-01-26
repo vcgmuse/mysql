@@ -1,0 +1,34 @@
+CREATE TABLE names (
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(255),
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP);
+
+INSERT INTO names (name)
+VALUES ("Emmanuel"),
+("Amy"),
+("Lyric"),
+("Bonnie"),
+("Roy"),
+("Jordan");
+
+UPDATE names
+SET name = "Manny"
+WHERE id = 3;
+
+UPDATE names
+SET name = "Max"
+WHERE id = 6;
+
+UPDATE names
+SET created_at = CURRENT_TIMESTAMP()
+WHERE name = "Emmanuel";
+
+DELETE FROM names
+WHERE id = 2;
+
+// THIS IS NEEDED TO UPDATE BASED ON OTHER COLUMNS OTHER THAN PRIMARY KEY
+SET SQL_SAFE_UPDATES = 0;
+
+DELETE FROM names 
+WHERE name = "Manny";

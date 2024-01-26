@@ -1,0 +1,61 @@
+INSERT INTO dojos (name, created_at, updated_at)
+VALUES 
+("East Coast", now(), now()),
+("West Coast", now(), now()),
+("South Central", now(), now());
+
+SET SQL_SAFE_UPDATES = 0;
+
+DELETE FROM dojos;
+
+SET SQL_SAFE_UPDATES = 1;
+
+INSERT INTO dojos (name, created_at, updated_at)
+VALUES
+("North Central", now(), now()),
+("Mid-Town", now(), now()),
+("Northwest Pacific", now(), now());
+
+INSERT INTO ninjas (first_name, last_name, age, created_at, updated_at, dojo_id)
+VALUES 
+("Mitch", "DaStitch", 24, now(),now(), 4),
+("Sam", "Slam", 28, now(),now(), 4),
+("A.K.A.", "Amy Kick Ass", 24, now(),now(), 4);
+
+INSERT INTO ninjas (first_name, last_name, age, created_at, updated_at, dojo_id)
+VALUES 
+("Razor", "Riff", 32, now(),now(), 5),
+("Vicky", "Venom", 28, now(),now(), 5),
+("Stormy", "Steel", 20, now(),now(), 5);
+
+INSERT INTO ninjas (first_name, last_name, age, created_at, updated_at, dojo_id)
+VALUES 
+("Old", "Dirtbag", 40, now(),now(), 6),
+("Bugsy", "Bucks", 30, now(),now(), 6),
+("Dee", "Crepit", 80, now(),now(), 6);
+
+SELECT * FROM ninjas
+where dojo_id = 4;
+
+SELECT * FROM ninjas
+where dojo_id = 6;
+
+I THINK THIS IS WHAT YOU WERE ASKING FOR. They both seem to produce the same.
+The link gives a rough idea to play with.
+https://learnsql.com/cookbook/how-to-find-the-maximum-value-of-a-numeric-column-in-sql/#:~:text=To%20find%20the%20max%20value,all%20records%20in%20the%20table.
+
+SELECT MAX(dojo_id) from ninjas;
+SELECT dojo_id from ninjas
+where id = (SELECT MAX(id) from ninjas);
+
+select * from dojos
+join ninjas on ninjas.dojo_id = dojos.id
+where ninjas.id = 6;
+
+select * from ninjas
+join dojos on dojos.id = ninjas.dojo_id;
+
+
+
+
+
