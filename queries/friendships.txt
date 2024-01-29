@@ -1,0 +1,77 @@
+insert into users (first_name, last_name, created_at, updated_at)
+values
+("Amy", "Giver", now(), now()),
+("Eli", "Byers", now(), now()),
+("Marky", "Mark", now(), now()),
+("Kermit", "The Frog", now(), now()),
+("Big", "Bird", now(), now())
+("Dojo", "Ninja", now(), now());
+
+insert into friendships (user_id, friend_id)
+values
+(1,2),
+(1,4),
+(1,6),
+(2,1),
+(2,3),
+(2,5),
+(3,2),
+(3,5),
+(4,3),
+(5,1),
+(5,6),
+(6,2),
+(6,3);
+
+select users.id, users.first_name, friend.id, friend.first_name
+from users
+join friendships as person on users.id = person.user_id
+join users as friend on person.friend_id = friend.id;
+
+1	Amy	2	Eli
+1	Amy	4	Kermit
+1	Amy	6	Dojo
+2	Eli	1	Amy
+2	Eli	3	Marky
+2	Eli	5	Big
+3	Marky	2	Eli
+3	Marky	5	Big
+4	Kermit	3	Marky
+5	Big	1	Amy
+5	Big	6	Dojo
+6	Dojo	2	Eli
+6	Dojo	3	Marky
+
+select users.id as friend, users.first_name, users.last_name, main.id as user, main.first_name, main.last_name
+from users
+join friendships as friend on users.id = friend.friend_id
+join users as main on  main.id = friend.user_id
+where main.id = 1;
+
+2	Eli	Byers	1	Amy	Giver
+4	Kermit	The Frog	1	Amy	Giver
+6	Dojo	Ninja	1	Amy	Giver
+
+select count(friendships.id) as total_friendships
+from friendships;
+
+13
+
+select users.id user_id, count(users.id) as total
+from users
+join friendships as user on users.id = user.user_id
+group by users.id
+order by total desc
+limit 1;
+
+1	3
+
+select users.id as friend, users.first_name, users.last_name, main.id as friend_of, main.first_name, main.last_name
+from users
+join friendships as friends on users.id = friends.friend_id
+join users as main on friends.user_id = main.id
+where main.id = 3
+order by users.first_name, users.last_name asc;
+
+5	Big	Bird	3	Marky	Mark
+2	Eli	Byers	3	Marky	Mark

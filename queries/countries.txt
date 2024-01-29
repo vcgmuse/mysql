@@ -1,0 +1,54 @@
+Query 1:
+select country.Name as Name, language.Language as Language, language.Percentage as Percentage
+from country
+join countrylanguage as language on country.Code = language.CountryCode
+where language.Language = 'Slovene'
+order by Percentage desc;
+
+Query 2:
+select country.Name as Country, count(city.ID) as Total_Cities
+from country
+join city on country.Code = city.CountryCode
+group by Country.Code
+order by Total_Cities desc;
+
+Query 3:
+select country.Name as Country, city.Name as City, city.Population as Pop
+from country
+join city on country.Code = city.CountryCode
+where city.Population > 500000
+order by city.Population desc;
+
+Query 4:
+select country.Name as Country, language.Language as Language, language.Percentage as Percentage
+from country
+join countrylanguage as language on country.Code = language.CountryCode
+where Percentage > 89
+order by Percentage desc;
+
+Query 5:
+select country.Name as Name, country.SurfaceArea as Surface_Area, country.Population as Pop
+from country
+where country.SurfaceArea < 501 and country.Population > 100000
+order by country.SurfaceArea desc;
+
+Query 6:
+select country.Name as Name, country.GovernmentForm as State, country.Capital as Capital, country.LifeExpectancy as Life_Exp
+from country
+where country.GovernmentForm = 'Constitutional Monarchy' and country.Capital > 200 and country.LifeExpectancy > 75
+order by country.LifeExpectancy desc;
+
+Query 7:
+select country.Name as Name, city.Name as City, city.District as District, city.Population as Population
+from country
+join city on country.Code = city.CountryCode
+where country.Name = 'Argentina' and city.District = 'Buenos Aires' and city.Population > 500000
+order by city.Name;
+
+Query 8:
+select country.Region, count(country.Name) as Total_Countries
+from country
+group by country.Region
+order by Total_Countries desc;
+
+
